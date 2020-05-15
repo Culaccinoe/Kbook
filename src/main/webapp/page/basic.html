@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="../UI/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<link href="../UI/bootstrap/css/font-awesome.min93e3.css" rel="stylesheet">
+<script src="../UI/jquery/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="../UI/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../UI/layer/layer.js"></script>
+<script src="../UI/layer/extend/layer.ext.js"></script>
+<script src="../UI/js/common.js"></script>
+<script src="../UI/js/validate.js"></script>
+<link href="../UI/bootstrap/css/select2.min.css" type="text/css" rel="stylesheet" />
+<script src="../UI/bootstrap/js/select2.min.js" type="text/javascript"></script>
+<link href="../UI/bootstrap/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" >
+<script type="text/javascript" src="../UI/bootstrap/js/bootstrap-datetimepicker.min.js" ></script>
+<script type="text/javascript" src="../UI/bootstrap/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<title>基本页面</title>
+</head>
+<body>
+	<script type="text/javascript">
+	//页面加载时查询该用户的全部应用列表
+	$(document).ready(function() {
+		createPagination(1,20,150);
+	});
+	$(window).load(function() {
+
+		 //select2 控件渲染
+
+		$("#devLanguageQuery").select2({
+			tags : true
+		});
+		$("#sysLevelQuery").select2({
+			 minimumResultsForSearch: Infinity
+		});
+
+		$("#devLanguage").select2({
+			minimumResultsForSearch: Infinity
+		});
+
+		$("#orgName").select2({
+			minimumResultsForSearch: Infinity
+		});
+
+		$("#sysLevel").select2({
+			minimumResultsForSearch: Infinity
+		});
+
+
+		$('.form_date').datetimepicker({
+				language : 'zh-CN',
+				weekStart : 1,
+				todayBtn : 1,
+				autoclose : 1,
+				todayHighlight : 1,
+				startView : 2,
+				minView : 2,
+				forceParse : 0
+			});
+
+			$('.to_date').datetimepicker({
+				language : 'zh-CN',
+				weekStart : 1,
+				todayBtn : 1,
+				autoclose : 1,
+				todayHighlight : 1,
+				startView : 2,
+				minView : 2,
+				forceParse : 0
+			});
+
+		});
+
+		$(function() {
+			//应用注册
+			$("#addBtn").click(function() {
+				//首先把校验时的红色边框去掉
+				$("#appName").css({
+
+					"border-color" : ""
+				});
+				$("#appCode").css({
+
+					"border-color" : ""
+				});
+				$("#sysField").css({
+
+					"border-color" : ""
+				});
+
+				$("#appName").val("");
+				$("#sysField").val("");
+				$("#appCode").val("");
+				$("#addModal").modal("show");
+			});
+
+			//导出数据
+			$("#exportBtn").click(function() {
+				var _index = layer.load(2, {
+					time : 2000
+				});
+			});
+		});
+
+		function deleteAppS() {
+			layer.confirm('确定删除?', function() {
+				layer.msg('删除成功', {
+					icon : 1,
+					time : 2200
+				});
+			});
+		}
+
+		function deleteAppF() {
+			layer.confirm('确定删除?', function() {
+				layer.msg('删除失败', {
+					icon : 2,
+					time : 2200
+				});
+			});
+		}
+
+		//应用注册
+		function addApp() {
+			var vali = validate.valifunc({
+				"appName" : false,
+				"appCode" : false,
+				"sysLevel" : false,
+				"sysField" : false,
+				"devLanguage" : false,
+				"orgName" : false
+			//"hostRestrict":false
+			});
+			if (!vali.success) {
+				return;
+			}
+			;
+		}
+
+		//查看
+		function viewData(){
+			$('#viewModal').modal("show");
+			$('#appSign').val("pHcGk6tpBXSb56fYY5Gv2Bt6vT4D89YS");
+		}
+
+		//分页
+		function createPagination(pageIndex,pageSize,totalCount) {
+			var totalPage = Math.ceil(totalCount/pageSize);//总页数
+			var showPageNum = 5 ;//页面显示页码的数量
+			var pageNumString = '';
+			var realPageIndex = pageIndex;
+			if(totalPage <= showPageNum){
+				pageIndex =1;
+			}else if( (totalPage - pageIndex)  < (showPageNum - 1) ){
+				pageIndex = (totalPage - showPageNum + 1);
+			}
+			for(var i=0; i< totalPage ;i++ ){
+				if( (pageIndex+i) > totalPage ){break;}
+				if(i>=showPageNum){ break;}
+
+				if( (pageIndex+i) == realPageIndex ){
+					pageNumString += '<li class="active"><a href="javascript:void(0);"onclick="">'+(pageIndex+i)+'</a></li>';
+				}
+				else{
+					pageNumString += '<li><a href="javascript:void(0);"onclick="">'+(pageIndex+i)+'</a></li>';
+				}
+			}
+			var pageIndexPre = (realPageIndex -1) <= 0? 1 : (realPageIndex -1);//前一页
+			var pageIndexNext = (realPageIndex +1) >= totalPage? totalPage : (realPageIndex +1);//后一页
+			var page =
+			"<nav>" +
+			'<ul class="pagination"> ' +
+				'<li><a><span aria-hidden="true">共 '+ totalCount +' 条</span></a></li>' +
+				'<li><a href="javascript:void(0);" onclick="" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'+
+				'<li><a href="javascript:void(0);" onclick="" aria-label="Previous">'+
+				'<span aria-hidden="true">&lsaquo;</span></a></li>' +
+				pageNumString +
+				'<li><a href="javascript:void(0);" onclick="" aria-label="Next"> '+
+				'<span aria-hidden="true">&rsaquo;</span></a></li>'+
+				'<li><a href="javascript:void(0);" onclick="" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>'+
+			'</ul>'+
+			'</nav>';
+			$('#page').empty();
+			$('#page').append(page);
+		}
+	</script>
+	<div class="container-fluid">
+		<br>
+		<div class="panel panel-default">
+			<div class="panel-heading" >查询条件</div>
+			<div class="panel-body">
+				<form class="form-inline">
+					<div class="form-group" style="width:100%">
+					<label for="appNameQuery" >应用名称：</label>
+					<input type="text" id="appNameQuery" class="form-control" style="width: 200px"
+							value="模糊查询" onclick="if(this.value=='模糊查询'){this.value='';}"
+							onblur="if (value=='') {value='模糊查询'}" />
+
+					<label for="devLanguageQuery" style="margin-left: 30px">开发语言：</label>
+						<select class=" form-control" id="devLanguageQuery"  search="search" style="width: 200px">
+							<option value="" selected="selected">--请选择--</option>
+							<option value="0" >Java</option>
+							<option value="1" >C#</option>
+							<option value="2" >C++</option>
+						</select>
+
+					<label for="sysLevelQuery" style="margin-left: 30px">系统级别：</label>
+					     <select class="form-control " id="sysLevelQuery" style="width: 200px" search="search">
+							<option value="" selected="selected">--请选择--</option>
+							<option value="0" >P0</option>
+							<option value="1" >P1</option>
+							<option value="2" >P2</option>
+						</select>
+						<br><br>
+
+		             <label for="dtp_form_date" >创建日期：</label>
+
+						<div class="input-group date form_date col-md-2"  data-date-format="yyyy-mm-dd" data-link-field="dtp_form_date"
+							 data-link-format="yyyy-mm-dd" style="width:200px">
+					    <input id="dtp_form_date" class="form-control"  type="text" readonly>
+					    <span class="input-group-addon"><i class="fa fa-calendar"></i></span></span>
+						</div>
+
+
+						<label for="dtp_to_date" style="margin-left: 45px">至</label>
+						<div class="input-group date to_date col-md-2"   data-date-format="yyyy-mm-dd" data-link-field="dtp_to_date"
+							   data-link-format="yyyy-mm-dd" style="margin-left: 40px;width:200px">
+						<input id="dtp_to_date" class="form-control"  type="text" readonly>
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						</div>
+						<label for="Standard" style="margin-left: 40px">状态:</label>
+                        <span  style="margin-left:35px"><input type="radio" name="optionsRadios" id="isStandard" value="0" checked>&nbsp;&nbsp;申请&nbsp;<i class="fa fa-hand-paper-o"></i></span>
+                        <span  style="margin-left: 30px"> <input type="radio" name="optionsRadios" id="unStandard" value="1" >&nbsp;&nbsp;发布&nbsp;<i class="fa fa-check-square-o"></i></span>
+					    <button id="queryBtn" type="button" class="btn btn-primary" style="margin-left: 50px"><i class="fa fa-search"></i> 查询</button>
+					     <button id="resetBtn" type="reset" class="btn btn-primary" style="margin-left: 30px"><i class="fa fa-trash"></i>&nbsp;清空</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading" style="background-color: #FFFFFF;">
+				<button id="addBtn" type="button" class="btn btn-primary"><i class="fa fa-plus"></i>  新增应用</button>
+				<button id="exportBtn" type="button" class="btn btn-primary" style="margin-left: 1%;"><i class="fa fa-download"></i> 导出数据</button>
+			</div>
+			<div class="table-responsive">
+				<table class="table  table-bordered table-hover"
+					style="font-family: Helvetica, 微软雅黑;">
+					<thead >
+						<tr>
+							<th>序号</th>
+							<th>应用编码</th>
+							<th>应用名称</th>
+							<th>部门</th>
+							<th>系统级别</th>
+							<th>开发语言</th>
+							<th>状态</th>
+							<th>创建日期</th>
+							<th>应用负责人</th>
+							<th style="width:220px;text-align:center">操作</th>
+						</tr>
+					</thead>
+					<tbody id="contentBody">
+						<tr>
+							<td>1</td>
+							<td>appcenter</td>
+							<td>应用中心</td>
+							<td>平台</td>
+							<td>P0</td>
+							<td>Java</td>
+							<td>申请  <i class="fa fa-hand-paper-o"></i></td>
+							<td>2016-09-22</td>
+							<td>陈剑</td>
+							<td style="text-align:center"><a herf="#" onclick="viewData()"><span>【查看】</span><a herf="#" onclick="deleteAppS()"><span>【删除】</span></td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>msgbox</td>
+							<td>消息盒子</td>
+							<td>平台</td>
+							<td>P1</td>
+							<td>Java</td>
+							<td>发布  <i class="fa fa-check-square-o"></i></td>
+							<td>2016-09-22</td>
+							<td>张频</td>
+							<td style="text-align:center"><a herf="#"><span>【查看】</span><a herf="#" onclick="deleteAppF()"> <span>【删除】</span></td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>sso</td>
+							<td>单点登录</td>
+							<td>平台</td>
+							<td>P0</td>
+							<td>Java</td>
+							<td>发布  <i class="fa fa-check-square-o"></i></td>
+							<td>2016-09-22</td>
+							<td>张谋喆</td>
+							<td style="text-align:center"><a herf="#"><span>【查看】</span><a herf="#" ><span>【删除】</span></td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>k-mq</td>
+							<td>消息队列</td>
+							<td>平台</td>
+							<td>P0</td>
+							<td>Java</td>
+							<td>发布  <i class="fa fa-check-square-o"></i></td>
+							<td>2016-09-22</td>
+							<td>高建华</td>
+							<td style="text-align:center"><a herf="#"><span>【查看】</span><a herf="#"><span>【删除】</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- 分页 -->
+		<div id="page" style="text-align: right;">
+		<!-- <nav>
+			<ul class="pagination">
+				<li><a><span aria-hidden="true">共 0 条</span></a></li>
+				<li><a href="javascript:void(0);" onclick="" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+				<li><a href="javascript:void(0);" onclick="" aria-label="Previous">
+				<span aria-hidden="true">&lsaquo;</span></a></li>
+				<li><a href="javascript:void(0);" onclick="" aria-label="Next">
+				<span aria-hidden="true">&rsaquo;</span></a></li>
+				<li><a href="javascript:void(0);" onclick="" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
+			</ul>
+			</nav> -->
+		</div>
+		<!-- 分页 -->
+	</div>
+
+	<!-- 新增应用-->
+	<div class="modal fade" id="addModal"  role="dialog" aria-labelledby="addModalLabel">
+		<div class="modal-dialog" role="document" style="margin-top: 100px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="addModalLabel">添加应用信息</h4>
+				</div>
+				<div style="padding: 10px;">
+					<form class="form-horizontal">
+						<div class="form-group ">
+							<label for="appName" class="col-sm-3 control-label">应用名称：</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control required" id="appName"
+								onblur="if (this.value!=null&&this.value!=''){this.style.border='1px solid #ccc'}">
+							</div>
+							<span style="color:  #AF0604"><font size="5px;">*</font></span>
+						</div>
+						<div class="form-group">
+							<label for="appCode" class="col-sm-3 control-label">应用编码：</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control required" id="appCode"
+								onblur="if (this.value!=null&&this.value!=''){this.style.border='1px solid #ccc'}">
+							</div>
+							<span style="color:  #AF0604"><font size="5px;">*</font></span>
+						</div>
+						<div class="form-group">
+							<label for="sysField" class="col-sm-3 control-label">产品领域：</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control required" id="sysField"
+								onblur="if (this.value!=null&&this.value!=''){this.style.border='1px solid #ccc'}">
+							</div>
+							<span style="color: #AF0604"><font size="5px;">*</font></span>
+						</div>
+
+						<div class="form-group">
+							<label for="sysLevel" class="col-sm-3 control-label" >应用级别：</label>
+							<div class="col-sm-8">
+								<select class="form-control required" id="sysLevel" search="search"  style="width: 375px;">
+								    <option value="">--请选择--</option>
+									<option value='0'>P0</option>
+									<option value='1'>P1</option>
+									<option value='2'>P2</option>
+								</select>
+							</div>
+							<span style="color:  #AF0604"><font size="5px;">*</font></span>
+						</div>
+
+						<div class="form-group">
+							<label for="orgName" class="col-sm-3 control-label">部门：</label>
+							<div class="col-sm-8">
+								<select class="form-control required" id="orgName" search="search" style="width: 375px;">
+									<option value="">--请选择--</option>
+								</select>
+							</div>
+							<span style="color:  #AF0604"><font size="5px;">*</font></span>
+						</div>
+
+						<div class="form-group">
+							<label for="devLanguage" class="col-sm-3 control-label">开发语言：</label>
+							<div class="col-sm-8">
+								<select class="form-control required" id="devLanguage" search="search" style="width: 375px;">
+								<option value="">--请选择--</option>
+								</select>
+							</div>
+							<span style="color:  #AF0604"><font size="5px;">*</font></span>
+						</div>
+						<div class="form-group">
+							<label for="hostRestrict" class="col-sm-3 control-label">应用部署IP地址</label>
+							<div class="col-sm-8">
+							<textarea onkeyup="this.value=this.value.replace(/[^\r\n0-9\,\.]/g,'');" name="hostRestrict" style="height: 80px;"
+							class="form-control required" id="hostRestrict" onclick="if(this.value=='示例：127.0.0.0,127.0.0.1'){this.value='';}"
+							onblur="if (value=='') {value='示例：127.0.0.0,127.0.0.1'}">示例：127.0.0.0,127.0.0.1</textarea>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" onclick="addApp()" >确定</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" style="margin-left: 50px">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- 新增应用-->
+
+    <!-- 查看-->
+	<div class="modal fade" id="viewModal" tabindex="-1" role="dialog"
+		aria-labelledby="viewModalLabel">
+		<div class="modal-dialog" role="document" style="margin-top: 250px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="viewModalLabel">查看应用签名</h4>
+				</div>
+				<div style="padding: 10px;">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label for="appSign" class="col-sm-3 control-label">应用签名</label>
+							<div class="col-sm-8">
+								<input type="text"  class="form-control" id="appSign" readOnly="readonly" >
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button id="cancel" type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-reply"></i>&nbsp;返回</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 查看-->
+
+</body>
+</html>

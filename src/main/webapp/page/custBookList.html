@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>图书列表（用户）</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="../static/jquery-ui/jquery-ui.min.css" type="text/css" rel="stylesheet"/>
+    <link href="../static/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link href="../static/bootstrap/css/font-awesome.min93e3.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/webuploader/webuploader.css">
+    <link href="../static/css/select2.min.css" type="text/css" rel="stylesheet"/>
+    <script src="../static/jquery/jquery-1.11.3.min.js" type="text/javascript"></script>
+
+    <script src="../static/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../static/layer/layer.js"></script>
+    <script src="../static/layer/extend/layer.ext.js"></script>
+    <script src="../static/js/validate.js"></script>
+    <script src="../static/bootstrap/js/select2.min.js" type="text/javascript"></script>
+    <script src="../static/js/common.js"></script>
+    <script src="../js/custBookList.js"></script>
+
+
+    <script type="text/javascript" src="../static/webuploader/webuploader.js" charset="UTF-8"></script>
+
+   
+</head>
+<body>
+<div class="container-fluid">
+    <br>
+    <div class="panel panel-primary" style="border-color:#ddd;">
+        <div class="panel-heading" style="font-weight: bold">查询条件</div>
+        <div class="panel-body">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="bookNameId" style="margin-left: 8px;">图书名称：</label>
+                    <input id="compareStatus" class="form-control" type="hidden">
+                    <input id="bookNameId" class="form-control" type="text" placeholder="模糊查询">
+                </div>
+                <button id="query" type="button" class="btn btn-primary" onclick="queryData()"
+                        style="margin-left: 5%; color: white;  font-weight: bold;  outline:none;">
+                    <i class="fa fa-search" aria-hidden="true"></i> &nbsp;查詢
+                </button>
+             </form>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" style="font-weight:bold;font-family: Helvetica, 微软雅黑;color:#5C5C5C"><span>图书列表</span></div>
+        <div class="panel-body">
+        <div id = "books" style="width:100%">
+    
+        </div>
+
+    </div>
+ 
+</div>
+
+<!-- 分页 -->
+    <div id="page" style="text-align: right; margin-right: 10px;margin-right: 10px"></div>
+    <!-- 分页 -->
+    
+    
+<textarea hidden id="htmlTemplate"></textarea>
+<script type="text/javascript">
+    //    document.write("<script  type='text/javascript' charset='UTF-8' src='" + _sso_sc_url + "'><\/script>");
+        queryData();
+
+</script>
+</body>
+</html>

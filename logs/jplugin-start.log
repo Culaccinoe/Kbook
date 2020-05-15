@@ -1,0 +1,84 @@
+ 2017-12-22 14:29:31  $$$ plugin.home=C:\Users\Administrator\Desktop\资料\kbook\kbook\.
+ 2017-12-22 14:29:31  $$$ ConfigDir=C:\Users\Administrator\Desktop\资料\kbook\kbook\./src/main/resources/config
+ 2017-12-22 14:29:31  $$$ WorkDir=C:\Users\Administrator\Desktop\资料\kbook\kbook\.
+ 2017-12-22 14:29:31  IgnoredPlugin : com.haiziwang.platform.kmem.Plugin
+ 2017-12-22 14:29:31  IgnoredPlugin : com.hzw.monitor.risk.client.plugin.Plugin
+ 2017-12-22 14:29:31  IgnoredPlugin : com.haiziwang.platform.kbdqe.sdk.Plugin
+ 2017-12-22 14:29:31  IgnoredPlugin : com.haiziwang.platform.mq.Plugin
+ 2017-12-22 14:29:31  IgnoredPlugin : com.haiziwang.platform.kfs.client.Plugin
+ 2017-12-22 14:29:31  Using Built-in basic-config:C:\Users\Administrator\Desktop\资料\kbook\kbook\./basic-config.properties
+ 2017-12-22 14:29:31  初始化过程发生错误
+java.lang.RuntimeException
+	at net.jplugin.core.kernel.impl.PluginPrepareHelper.classPrepare(PluginPrepareHelper.java:56)
+	at net.jplugin.core.kernel.impl.PluginPrepareHelper.preparePlugins(PluginPrepareHelper.java:84)
+	at net.jplugin.core.kernel.api.PluginEnvirement.startup(PluginEnvirement.java:213)
+	at net.jplugin.core.kernel.api.PluginEnvirement.startup(PluginEnvirement.java:171)
+	at net.jplugin.core.kernel.PluginApp.main(PluginApp.java:47)
+	at net.jplugin.core.kernel.api.BaseTestCase.setUp(BaseTestCase.java:18)
+	at junit.framework.TestCase.runBare(TestCase.java:125)
+	at junit.framework.TestResult$1.protect(TestResult.java:106)
+	at junit.framework.TestResult.runProtected(TestResult.java:124)
+	at junit.framework.TestResult.run(TestResult.java:109)
+	at junit.framework.TestCase.run(TestCase.java:118)
+	at org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestReference.run(JUnit3TestReference.java:131)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+Caused by: java.lang.RuntimeException: basic-config.properties file error:esf-port have null value
+	at com.haiziwang.platform.appclient.api.BasicConfiguration.create(BasicConfiguration.java:80)
+	at com.haiziwang.platform.appclient.api.AppEnvirement.init(AppEnvirement.java:71)
+	at com.haiziwang.platform.appclient.Plugin.prepare(Plugin.java:27)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at net.jplugin.core.kernel.impl.PluginPrepareHelper.classPrepare(PluginPrepareHelper.java:50)
+	... 16 more
+ 2017-12-22 14:30:19  $$$ plugin.home=C:\Users\Administrator\Desktop\资料\kbook\kbook\.
+ 2017-12-22 14:30:19  $$$ ConfigDir=C:\Users\Administrator\Desktop\资料\kbook\kbook\./src/main/resources/config
+ 2017-12-22 14:30:19  $$$ WorkDir=C:\Users\Administrator\Desktop\资料\kbook\kbook\.
+ 2017-12-22 14:30:19  IgnoredPlugin : com.haiziwang.platform.kmem.Plugin
+ 2017-12-22 14:30:19  IgnoredPlugin : com.hzw.monitor.risk.client.plugin.Plugin
+ 2017-12-22 14:30:19  IgnoredPlugin : com.haiziwang.platform.kbdqe.sdk.Plugin
+ 2017-12-22 14:30:19  IgnoredPlugin : com.haiziwang.platform.mq.Plugin
+ 2017-12-22 14:30:19  IgnoredPlugin : com.haiziwang.platform.kfs.client.Plugin
+ 2017-12-22 14:30:19  Using Built-in basic-config:C:\Users\Administrator\Desktop\资料\kbook\kbook\./basic-config.properties
+ 2017-12-22 14:30:19  $$$ AppCenterUrl=http://test.appcenter.haiziwang.com/appcenter  AppCode=k-book  ESFPort=8678  ESFPortHttp=null
+ 2017-12-22 14:30:19  $$$ Remote Configigure Providor init:com.haiziwang.platform.cfg.impl.CfgProvidorImpl
+ 2017-12-22 14:30:19  Token plugin not start!
+ 2017-12-22 14:30:27  java.lang.RuntimeException: Read timed out
+ 2017-12-22 14:30:27  初始化过程发生错误
+java.lang.RuntimeException: plugin instance create error,nullnet.jplugin.core.mtenant.Plugin
+	at net.jplugin.core.kernel.api.PluginEnvirement.addPlugin(PluginEnvirement.java:304)
+	at net.jplugin.core.kernel.api.PluginEnvirement.startup(PluginEnvirement.java:217)
+	at net.jplugin.core.kernel.api.PluginEnvirement.startup(PluginEnvirement.java:171)
+	at net.jplugin.core.kernel.PluginApp.main(PluginApp.java:47)
+	at net.jplugin.core.kernel.api.BaseTestCase.setUp(BaseTestCase.java:18)
+	at junit.framework.TestCase.runBare(TestCase.java:125)
+	at junit.framework.TestResult$1.protect(TestResult.java:106)
+	at junit.framework.TestResult.runProtected(TestResult.java:124)
+	at junit.framework.TestResult.run(TestResult.java:109)
+	at junit.framework.TestCase.run(TestCase.java:118)
+	at org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestReference.run(JUnit3TestReference.java:131)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+Caused by: java.lang.NullPointerException
+	at com.haiziwang.platform.cfg.client.CfgClient.getString(CfgClient.java:79)
+	at com.haiziwang.platform.cfg.impl.CfgProvidorImpl.getConfigValue(CfgProvidorImpl.java:18)
+	at net.jplugin.core.config.api.ConfigFactory._getStringConfig(ConfigFactory.java:97)
+	at net.jplugin.core.config.api.ConfigFactory.getStringConfig(ConfigFactory.java:21)
+	at net.jplugin.core.config.api.ConfigFactory.getStringConfigWithTrim(ConfigFactory.java:29)
+	at net.jplugin.core.mtenant.MtenantStatus.init(MtenantStatus.java:8)
+	at net.jplugin.core.mtenant.Plugin.<init>(Plugin.java:67)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at java.lang.Class.newInstance(Class.java:442)
+	at net.jplugin.core.kernel.api.PluginEnvirement.addPlugin(PluginEnvirement.java:302)
+	... 15 more

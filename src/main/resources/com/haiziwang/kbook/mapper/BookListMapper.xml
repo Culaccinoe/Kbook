@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haiziwang.kbook.mapper.BookListMapper">
+
+    <select id="queryBookWithPage" resultType="com.haiziwang.kbook.dbo.Book">
+        select
+        book_id bookId,
+        book_name bookName,
+        book_picture bookPicture,
+        author,
+        publisher,
+        description,
+        book_count bookCount,
+        link,
+        creator_name creatorName,
+        state,
+        create_time createTime,
+        update_time updateTime
+        from t_book
+        <if test="bookName!= null">
+            WHERE book_name like CONCAT('%', #{bookName}, '%')
+        </if>
+        order by state,book_count desc
+
+
+    </select>
+
+    <select id="admQueryBookWithPage" resultType="com.haiziwang.kbook.dbo.Book">
+        select
+        book_id bookId,
+        book_name bookName,
+        book_picture bookPicture,
+        author,
+        publisher,
+        description,
+        book_count bookCount,
+        link,
+        creator_name creatorName,
+        state,
+        create_time createTime,
+        update_time updateTime,
+        file_name fileName
+        from
+        t_book
+        WHERE 1=1
+        <if test="recordMap.bookState !=null  and recordMap.bookState != '' ">
+            and (state = #{recordMap.bookState})
+        </if>
+        <if test="recordMap.bookName!= null and recordMap.bookName != '' ">
+            AND book_name like CONCAT('%', #{recordMap.bookName}, '%')
+        </if>
+       <!--  order by (case state when '0' then '0' else '1' end) ,bookCount  -->
+        order by state , book_count desc
+    </select>
+    
+    
+
+    <select id="queryBookById" resultType="com.haiziwang.kbook.dbo.Book">
+		select 
+			book_id bookId,
+			book_name bookName,
+			book_picture bookPicture,
+			author,
+			publisher,
+			description,
+			book_count bookCount,
+			link,
+			creator_name creatorName,
+			state,
+			create_time createTime,
+			update_time updateTime
+		from 
+			t_book
+		WHERE book_id = #{bookId}
+		
+	</select>
+
+    <insert id="addBorrowRecord" parameterType="com.haiziwang.kbook.dbo.BorrowRecord">
+		INSERT INTO	t_book_borrow
+			(user_id , user_name, book_id,book_name,publisher,start_time,end_time,state)
+		VALUES
+			(#{userId},#{userName},#{bookId},#{bookName},#{publisher},#{startTime},#{endTime},#{state})
+	
+	</insert>
+	
+	 <select id="borrowBookById" resultType="com.haiziwang.kbook.dbo.BorrowRecord">
+		select 
+		    id,
+			user_id userId,
+			user_name userName,
+			book_id bookId,
+			book_name bookName,
+			publisher,
+			start_time startTime,
+            end_time endTime,
+            state
+		from 
+			t_book_borrow
+		WHERE user_id = #{custId} and book_id=#{bookId} and state = 0
+		
+	</select>
+	
+	
+	<select id="queryBorrowById" resultType="com.haiziwang.kbook.dbo.BorrowRecord">
+		select 
+		    id,
+			user_id userId,
+			user_name userName,
+			book_id bookId,
+			book_name bookName,
+			publisher,
+			start_time startTime,
+            end_time endTime,
+            state
+		from 
+			t_book_borrow
+		WHERE user_id = #{custId}  and state = 0
+		
+	</select>
+	
+
+    <update id="changeBookCount">
+	    update 
+			t_book 
+		set
+			book_count=book_count-1
+		where 
+			book_id=#{bookId}
+	    
+	</update>
+
+    <update id="putOff">
+	    update 
+			t_book 
+		set
+		    state=1
+		where 
+			book_id=#{bookId}
+	    
+	</update>
+
+    <update id="putUp">
+	    update 
+			t_book 
+		set
+		    state=0
+		where 
+			book_id=#{bookId}
+	    
+	</update>
+	
+	<insert id="addBook" parameterType="com.haiziwang.kbook.dbo.Book">
+		INSERT INTO	t_book
+			(book_name,book_picture,author,publisher,description,book_count,link,creator_name,state,create_time,update_time,book_id,file_name)
+		VALUES
+			(#{bookName},#{bookPicture},#{author},#{publisher},#{description},#{bookCount},#{link},#{creatorName},#{state},#{createTime},#{updateTime},#{bookId},#{fileName})
+	
+	</insert>
+	
+	<update id="modifyBook" parameterType="com.haiziwang.kbook.dbo.Book">
+	    update 
+			t_book 
+		set
+		    book_name =#{bookName},
+		    author=#{author},
+		    book_picture=#{bookPicture},
+		    publisher=#{publisher},
+		    description=#{description},
+		    book_count = #{bookCount},
+		    link=#{link},
+		    update_time=#{updateTime},
+		    file_name = #{fileName} 
+		where 
+			book_id=#{bookId}
+	    
+	</update>
+
+</mapper>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haiziwang.kbook.mapper.BorrowRecordMapper">
+
+    <select id="queryByUserWithPage" resultType="com.haiziwang.kbook.dbo.BorrowRecord">
+        select
+        id,
+        user_id userId,
+        user_name userName,
+        book_id bookId,
+        book_name bookName,
+        publisher,
+        start_time startTime,
+        end_time endTime,
+        state
+        from
+        t_book_borrow
+        WHERE 1=1
+        <if test="recordMap.bookName !=null and recordMap.bookName != ''">
+            and (book_name like CONCAT('%',#{recordMap.bookName},'%') )
+        </if>
+
+        <if test="null != recordMap.startTime and '' !=recordMap.startTime">
+            <![CDATA[and NOT (end_time < #{recordMap.startTime})]]>
+        </if>
+
+        <if test="null != recordMap.endTime and '' !=recordMap.endTime">
+            <![CDATA[and NOT (start_time > #{recordMap.endTime})]]>
+        </if>
+
+        <if test="recordMap.status !=null and  recordMap.status !=''">
+            and (state = #{recordMap.status} )
+        </if>
+        <if test="custId !=null and custId !=''">
+            and (user_id = #{custId} )
+        </if>
+         order by (case when state ='1' then 0 when state='0'  then 1 else '2' end), startTime
+    </select>
+
+    <select id="queryByAdmWithPage" resultType="com.haiziwang.kbook.dbo.BorrowRecord">
+        select
+        id,
+        user_id userId,
+        user_name userName,
+        book_id bookId,
+        book_name bookName,
+        publisher,
+        start_time startTime,
+        end_time endTime,
+        state
+        from
+        t_book_borrow
+        WHERE 1=1
+        <if test="recordMap.userName !=null  and recordMap.userName != '' ">
+            and (user_name like CONCAT('%',#{recordMap.userName},'%') )
+        </if>
+
+        <if test="recordMap.bookName !=null and recordMap.bookName != ''">
+            and (book_name like CONCAT('%',#{recordMap.bookName},'%') )
+        </if>
+
+        <if test="null != recordMap.startTime and '' !=recordMap.startTime">
+            <![CDATA[and NOT (end_time < #{recordMap.startTime})]]>
+        </if>
+
+        <if test="null != recordMap.endTime and '' !=recordMap.endTime">
+            <![CDATA[and NOT (start_time > #{recordMap.endTime})]]>
+        </if>
+
+        <if test="recordMap.status !=null and  recordMap.status !=''">
+            and (state = #{recordMap.status} )
+        </if>
+        order by (case when state ='1' then 0 when state='0'  then 1 else '2' end), startTime
+    </select>
+
+    <update id="changeBookInfo" parameterType="com.haiziwang.kbook.dbo.Book">
+        update
+        t_book
+        set
+        book_count=#{bookInfo.bookCount}
+        where
+        book_id=#{bookInfo.bookId}
+    </update>
+
+    <update id="changeBorrowInfo" parameterType="com.haiziwang.kbook.dbo.BorrowRecord">
+        update
+        t_book_borrow
+        set
+        state=#{bookInfo.state}
+        <if test="bookInfo.state == 0">
+           ,end_time=date_add(NOW(), interval 1 MONTH) 
+        </if>       
+        where
+        id=#{bookInfo.id}
+    </update>
+
+    <select id="getBookInfo" resultType="com.haiziwang.kbook.dbo.BorrowRecord">
+        SELECT
+         A.user_id userId,
+         A.user_name userName,
+         A.book_id bookId,
+         A.book_name bookName,
+         A.publisher,
+         A.start_time startTime,
+         A.end_time endTime,
+         A.state,
+         B.book_count bookCount
+        FROM t_book_borrow A JOIN t_book B on A.book_id = B.book_id
+        where
+        A.id=#{id} 
+    </select>
+
+
+
+     <select id="queryRegular" resultType="com.haiziwang.kbook.dbo.BorrowRecord">
+        select
+        id,
+        user_id userId,
+        user_name userName,
+        book_id bookId,
+        book_name bookName,
+        publisher,
+        start_time startTime,
+        end_time endTime,
+        state
+        from
+        t_book_borrow
+        WHERE <![CDATA[end_time < now()]]>
+        and state=0
+        
+    </select>
+    
+    <update id="changeState" parameterType="java.util.HashMap">	
+     update  t_book_borrow 
+     set state=1	
+      where id in 
+	<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+		${item.id}  
+	 </foreach>
+	</update>
+</mapper>

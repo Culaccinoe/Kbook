@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>孩子王图书管理系统</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="../static/jquery-ui/jquery-ui.min.css" type="text/css" rel="stylesheet"/>
+    <link href="../static/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link href="../static/bootstrap/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet"/>
+    <link href="../static/bootstrap/css/font-awesome.min93e3.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/webuploader/webuploader.css">
+    <link href="../static/css/select2.min.css" type="text/css" rel="stylesheet"/>
+    <script src="../static/jquery/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../static/bootstrap/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+    <script src="../static/bootstrap/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+    <script src="../static/layer/layer.js"></script>
+    <script src="../static/layer/extend/layer.ext.js"></script>
+    <script src="../static/js/validate.js"></script>
+    <script src="../static/bootstrap/js/select2.min.js" type="text/javascript"></script>
+    <script src="../static/js/common.js"></script>
+    <script src="../js/login.js"></script>
+
+    <style type="text/css">
+        input {
+            border-radius: 4px;
+            border: #3366FF;
+        }
+
+        .submit {
+            background-color: #008CBA;
+            border-radius: 4px;
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        .loginbox {
+            border-radius: 8px;
+        }
+
+        body {
+            background-image: url("../page/images/login/u0.png");
+            background-size: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="control-group normal_text" style="margin-top:200px;margin-left:100px">
+    <h2 style="color:#B2DFEE;font-size:50px;">孩子王图书管理系统</h2>
+</div>
+
+<div class="loginbox" style="background:#FFFFFF; height:250px;width:400px;margin-left:100px;margin-top: 50px">
+
+    <div class="div3">
+        <br/>
+        <br/>
+        <br/>
+        <input id="username" name="username" class="form-control" type="text" placeholder="请输入工号" style="width:230px;height:30px;margin-left:50px">
+    </div>
+    <div style="margin-left:220px;">
+        <button class="submit" style="margin-top:20px;height: 35px;width: 75px" id="login" onclick="isLogin()">登录</button>
+    </div>
+
+</div>
+
+</body>
+</html>
